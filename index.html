@@ -269,10 +269,11 @@
 
   .timeline-inner {
     position: relative;
-    max-width: 680px;
+    max-width: 780px;
     margin: 0 auto;
   }
 
+  /* Vertical centre line */
   .timeline-line {
     position: absolute;
     left: 50%;
@@ -283,12 +284,13 @@
     transform: translateX(-50%);
   }
 
+  /* Each row: two equal columns, gap bridged by the centre line */
   .timeline-item {
     display: grid;
-    grid-template-columns: 1fr 48px 1fr;
-    gap: 0 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 3rem;
     margin-bottom: 3.5rem;
-    align-items: start;
+    align-items: center;
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.6s ease, transform 0.6s ease;
@@ -301,6 +303,7 @@
 
   .timeline-item:last-child { margin-bottom: 0; }
 
+  /* Text card */
   .timeline-content {
     padding: 1.25rem 1.5rem;
     background: rgba(250,246,240,0.8);
@@ -310,29 +313,50 @@
     backdrop-filter: blur(4px);
   }
 
-  .timeline-item:nth-child(odd) .timeline-content { grid-column: 1; }
-  .timeline-item:nth-child(odd) .timeline-icon   { grid-column: 2; }
-  .timeline-item:nth-child(odd) .timeline-empty  { grid-column: 3; }
+  /* Odd rows: image left, text right */
+  .timeline-item:nth-child(odd) .timeline-icon    { grid-column: 1; grid-row: 1; }
+  .timeline-item:nth-child(odd) .timeline-content { grid-column: 2; grid-row: 1; }
 
-  .timeline-item:nth-child(even) .timeline-empty  { grid-column: 1; }
-  .timeline-item:nth-child(even) .timeline-icon   { grid-column: 2; }
-  .timeline-item:nth-child(even) .timeline-content { grid-column: 3; }
+  /* Even rows: text left, image right */
+  .timeline-item:nth-child(even) .timeline-content { grid-column: 1; grid-row: 1; }
+  .timeline-item:nth-child(even) .timeline-icon    { grid-column: 2; grid-row: 1; }
 
+  /* Image container — slightly smaller than the text card */
   .timeline-icon {
-    width: 48px;
-    height: 48px;
+    width: 90%;
+    max-width: 280px;
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
-    background: var(--warm-white);
+    background: white;
     border: 1px solid var(--light-gold);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
-    box-shadow: 0 2px 8px rgba(107,83,68,0.12);
-    position: relative;
-    top: 1rem;
-    margin: 0 auto;
-    flex-shrink: 0;
+    box-shadow: 0 2px 12px rgba(107,83,68,0.12);
+    overflow: hidden;
+    padding: 0;
+    /* Odd items push toward the centre line on the right */
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  /* Even items push toward the centre line on the left */
+  .timeline-item:nth-child(even) .timeline-icon {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .timeline-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .timeline-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 
   .timeline-time {
@@ -380,12 +404,9 @@
 
   .map-canvas {
     width: 100%;
-    padding-top: 62%;
+    padding-top: 67%;
     position: relative;
-    background:
-      radial-gradient(ellipse at 30% 30%, rgba(196,163,90,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 70% 70%, rgba(138,158,140,0.12) 0%, transparent 50%),
-      linear-gradient(135deg, #e8dfd4 0%, #ddd3c5 40%, #e4dbd0 100%);
+    background: url('images/map.png') center center / cover no-repeat;
     border-radius: 4px;
     box-shadow: 0 8px 40px rgba(107,83,68,0.18), 0 2px 8px rgba(107,83,68,0.1);
     border: 1px solid rgba(196,163,90,0.25);
@@ -821,6 +842,70 @@
     color: var(--dusty-rose);
   }
 
+  /* ===== FAQ ===== */
+  .faq-list {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(196,163,90,0.2);
+  }
+
+  .faq-item:first-child {
+    border-top: 1px solid rgba(196,163,90,0.2);
+  }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 0.25rem;
+    text-align: left;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--warm-brown);
+    transition: color 0.2s;
+  }
+
+  .faq-question:hover { color: var(--dusty-rose); }
+
+  .faq-chevron {
+    font-size: 0.9rem;
+    color: var(--gold);
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    display: inline-block;
+  }
+
+  .faq-question[aria-expanded="true"] .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding: 0 0.25rem;
+  }
+
+  .faq-answer.open {
+    max-height: 300px;
+    padding: 0 0.25rem 1.25rem;
+  }
+
+  .faq-answer p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--taupe);
+  }
+
   /* ===== FOOTER ===== */
   footer {
     text-align: center;
@@ -834,28 +919,27 @@
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 600px) {
-    .timeline-line { left: 28px; }
+    .timeline-line { display: none; }
 
     .timeline-item {
-      grid-template-columns: 56px 1fr;
-      grid-template-rows: auto;
+      grid-template-columns: 1fr;
+      gap: 1rem 0;
     }
 
+    /* On mobile, image always on top, text below */
     .timeline-item:nth-child(odd) .timeline-icon,
     .timeline-item:nth-child(even) .timeline-icon {
       grid-column: 1;
       grid-row: 1;
+      width: 70%;
+      max-width: 200px;
+      margin: 0 auto;
     }
 
     .timeline-item:nth-child(odd) .timeline-content,
     .timeline-item:nth-child(even) .timeline-content {
-      grid-column: 2;
-      grid-row: 1;
-    }
-
-    .timeline-item:nth-child(odd) .timeline-empty,
-    .timeline-item:nth-child(even) .timeline-empty {
-      display: none;
+      grid-column: 1;
+      grid-row: 2;
     }
 
     .rsvp-wrapper { padding: 1.75rem 1.25rem 2rem; }
@@ -874,6 +958,7 @@
   <a href="#map-section">Map</a>
   <a href="#quick-info">Info</a>
   <a href="#rsvp">RSVP</a>
+  <a href="#faq">FAQ</a>
 </nav>
 
 <!-- ===== HERO ===== -->
@@ -907,42 +992,46 @@
     <div class="timeline-line"></div>
 
     <div class="timeline-item">
+      <div class="timeline-icon">
+        <img src="images/watch.png" alt="Ceremony Arrival" onerror="this.style.display='none'" style="transform: scale(0.95)">
+      </div>
       <div class="timeline-content">
         <p class="timeline-time">2:15 pm</p>
         <h3>Ceremony Arrival</h3>
         <p>Meet us at Pyrmon in preparation for the wedding ceremony! Please arrive by 2:15pm.</p>
       </div>
-      <div class="timeline-icon">🌸</div>
-      <div class="timeline-empty"></div>
     </div>
 
     <div class="timeline-item">
-      <div class="timeline-empty"></div>
-      <div class="timeline-icon">🥂</div>
       <div class="timeline-content">
         <p class="timeline-time">2:30 pm</p>
         <h3>Ceremony</h3>
         <p>Wedding ceremony.</p>
       </div>
+      <div class="timeline-icon">
+        <img src="images/ring.png" alt="Ceremony" onerror="this.style.display='none'" style="max-width: 100%; height: auto;">
+      </div>
     </div>
 
     <div class="timeline-item">
+      <div class="timeline-icon">
+        <img src="images/camera.png" alt="Group Photos" onerror="this.style.display='none'" style="max-width: 100%; height: auto;">
+      </div>
       <div class="timeline-content">
         <p class="timeline-time">3:15 pm</p>
         <h3>Group Photos at Pyrmont</h3>
         <p>We'll be taking a few group photos just outside the registry.</p>
       </div>
-      <div class="timeline-icon">🍽️</div>
-      <div class="timeline-empty"></div>
     </div>
 
     <div class="timeline-item">
-      <div class="timeline-empty"></div>
-      <div class="timeline-icon">🎂</div>
       <div class="timeline-content">
         <p class="timeline-time">6:00 pm</p>
         <h3>Reception</h3>
         <p>Join us as we celebrate!</p>
+      </div>
+      <div class="timeline-icon">
+        <img src="images/dinner.png" alt="Reception" onerror="this.style.display='none'" style="max-width: 100%; height: auto; transform: scale(0.9);">
       </div>
     </div>
   </div>
@@ -961,12 +1050,6 @@
 
   <div class="map-container">
     <div class="map-canvas" id="mapCanvas">
-
-      <!-- Placeholder text — remove when image inserted -->
-      <div class="map-placeholder-text">
-        <p>Your hand-painted watercolour map</p>
-        <p style="font-size:0.8rem;margin-top:0.3rem;font-style:normal;font-family:'Lato',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">Replace .map-canvas background with your image</p>
-      </div>
 
       <!-- Walking route SVG -->
       <svg class="map-route-svg" viewBox="0 0 100 62" preserveAspectRatio="none">
@@ -1150,6 +1233,92 @@
   </div>
 </section>
 
+<!-- ===== FAQ ===== -->
+<section id="faq" style="padding-top:4rem;padding-bottom:4rem;">
+  <div class="section-header">
+    <p class="label">Questions</p>
+    <div class="section-rule"></div>
+    <h2>Frequently Asked</h2>
+    <p class="serif-italic" style="color:var(--taupe);font-size:1.1rem;margin-top:0.5rem;">
+      Everything you might be wondering — and a little more
+    </p>
+  </div>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+        <span>Is there parking at the venues?</span>
+        <span class="faq-chevron">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>Yes — there is free on-site parking at the ceremony chapel. The reception hall has a public car park nearby on Example Road. If you're planning to enjoy a drink or two, we'd love for you to consider a taxi or rideshare home.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+        <span>Are children welcome?</span>
+        <span class="faq-chevron">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>We love your little ones dearly! We've kept our day intimate for adults only, so we hope you can treat it as a rare night off. Of course, breastfeeding babies are always welcome.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+        <span>Can I take photos during the ceremony?</span>
+        <span class="faq-chevron">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>We're having an unplugged ceremony — we'd love for you to be fully present with us in the moment. Our wonderful photographer will capture everything beautifully, and we'll share the gallery with you afterwards. Please do snap away freely during the reception!</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+        <span>What happens if the weather is unkind?</span>
+        <span class="faq-chevron">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>The ceremony and drinks are planned for the outdoor garden, but we have a beautiful indoor wet-weather contingency ready to go. We'll send an update closer to the date if the forecast looks lively — so please make sure your RSVP includes a current email address.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+        <span>Will there be accommodation nearby?</span>
+        <span class="faq-chevron">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>We've reserved a room block at The Example Inn, just a 10-minute walk from the reception hall. Mention our names when booking to access the group rate. We'd recommend booking early as rooms will go quickly!</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+        <span>Is there a gift registry?</span>
+        <span class="faq-chevron">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>Your presence truly is the greatest gift. If you'd like to contribute something, we have a small registry at Example Registry and a wishing well for those who prefer to give toward our honeymoon fund. There will be no pressure whatsoever on the day.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+        <span>I have another question — who can I contact?</span>
+        <span class="faq-chevron">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>Please ping us in the group chat and we'll get back to you as soon as we can. We can't wait to celebrate with you!</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="floral-divider">✿ · · ✿</div>
@@ -1232,6 +1401,22 @@ document.getElementById('mapCanvas').addEventListener('click', function(e) {
     closeTooltip();
   }
 });
+
+/* ----- FAQ accordion ----- */
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+  document.querySelectorAll('.faq-question[aria-expanded="true"]').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    b.nextElementSibling.classList.remove('open');
+  });
+
+  if (!isOpen) {
+    btn.setAttribute('aria-expanded', 'true');
+    answer.classList.add('open');
+  }
+}
 
 /* ----- RSVP Form ----- */
 // !! CONFIGURE: set your Formspree endpoint or custom action below
