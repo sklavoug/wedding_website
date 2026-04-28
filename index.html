@@ -906,6 +906,62 @@
     color: var(--taupe);
   }
 
+  /* ===== RSVP LOOKUP ===== */
+  .btn-lookup {
+    padding: 0.75rem 1.1rem;
+    background: var(--warm-brown);
+    color: var(--warm-white);
+    border: none;
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .btn-lookup:hover { background: var(--ink); }
+
+  .name-match {
+    margin-top: 0.45rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.97rem;
+  }
+
+  .name-match.not-found { color: var(--dusty-rose); }
+
+  .confirmed-names {
+    padding: 0.9rem 1.1rem;
+    background: rgba(138,158,140,0.08);
+    border: 1px solid rgba(138,158,140,0.25);
+    border-radius: 2px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--warm-brown);
+    margin-bottom: 0.5rem;
+  }
+
+  .btn-not-me {
+    background: none;
+    border: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: 0;
+    transition: color 0.2s;
+  }
+
+  .btn-not-me:hover { color: var(--dusty-rose); }
+
   /* ===== FOOTER ===== */
   footer {
     text-align: center;
@@ -993,45 +1049,56 @@
 
     <div class="timeline-item">
       <div class="timeline-icon">
-        <img src="images/watch.png" alt="Ceremony Arrival" onerror="this.style.display='none'" style="transform: scale(0.95)">
+        <img src="images/ring.png" alt="Ceremony" onerror="this.style.display='none'" style="max-width: 100%; height: auto;">
       </div>
       <div class="timeline-content">
         <p class="timeline-time">2:15 pm</p>
-        <h3>Ceremony Arrival</h3>
-        <p>Meet us at Pyrmon in preparation for the wedding ceremony! Please arrive by 2:15pm.</p>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-content">
-        <p class="timeline-time">2:30 pm</p>
         <h3>Ceremony</h3>
-        <p>Wedding ceremony.</p>
-      </div>
-      <div class="timeline-icon">
-        <img src="images/ring.png" alt="Ceremony" onerror="this.style.display='none'" style="max-width: 100%; height: auto;">
+        <p>Meet us at Pyrmont for the ceremony! The Registry asks that all guests arrive at the venue with plenty of time before the ceremony itself, so please arrive at 2:15 for a 2:30 start!</p>
       </div>
     </div>
 
     <div class="timeline-item">
-      <div class="timeline-icon">
-        <img src="images/camera.png" alt="Group Photos" onerror="this.style.display='none'" style="max-width: 100%; height: auto;">
-      </div>
       <div class="timeline-content">
-        <p class="timeline-time">3:15 pm</p>
+        <p class="timeline-time">3:10 pm</p>
         <h3>Group Photos at Pyrmont</h3>
-        <p>We'll be taking a few group photos just outside the registry.</p>
+        <p>The ceremony will wrap up, and we'll head outside and grab some group photos in front of the Sydney skyline!</p>
+      </div>
+      <div class="timeline-icon">
+        <img src="images/camera.png" alt="Group Photos at Pyrmont" onerror="this.style.display='none'"  style="max-width: 100%; height: auto;">
       </div>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-content">
-        <p class="timeline-time">6:00 pm</p>
-        <h3>Reception</h3>
-        <p>Join us as we celebrate!</p>
+        <p class="timeline-time">3:30 pm</p>
+        <h3>Break</h3>
+        <p>Susan and George will head off for family and couple photos, so it's break time! Feel free to get some city time in, or feel welcome to head to the reception venue at the Winery in Surry Hills.</p>
       </div>
       <div class="timeline-icon">
-        <img src="images/dinner.png" alt="Reception" onerror="this.style.display='none'" style="max-width: 100%; height: auto; transform: scale(0.9);">
+        <img src="images/watch.png" alt="Break" onerror="this.style.display='none'" style="max-width: 100%; height: auto; transform: scale(0.9);">
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <p class="timeline-time">5:30 pm</p>
+        <h3>Welcome Drinks</h3>
+        <p>Join us in the the Winery to kick off the reception dinner with some welcome cocktails! Drinks will be open for wine, beer, and even the spirits menu.</p>
+      </div>
+      <div class="timeline-icon">
+        <img src="images/cocktail.png" alt="Welcome Drinks" onerror="this.style.display='none'" style="max-width: 100%; height: auto; transform: scale(0.9);">
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <p class="timeline-time">6:30 pm</p>
+        <h3>Dinner</h3>
+        <p>A three course dinner will be served, with quick toasts, cake and more beverages to follow!</p>
+      </div>
+      <div class="timeline-icon">
+        <img src="images/dinner.png" alt="Dinner" onerror="this.style.display='none'" style="max-width: 100%; height: auto; transform: scale(0.9);">
       </div>
     </div>
   </div>
@@ -1176,10 +1243,24 @@
   <div class="rsvp-wrapper">
     <form id="rsvpForm" onsubmit="submitRSVP(event)">
 
-      <div class="form-group">
-        <label class="form-label" for="guestName">Your full name/s *</label>
-        <input class="form-input" id="guestName" name="guestName" type="text"
-               placeholder="e.g. Jane & John Smith" required autocomplete="name">
+      <!-- Name lookup -->
+      <div class="form-group" id="lookupGroup">
+        <label class="form-label" for="nameLookup">Your full name *</label>
+        <div style="display:flex;gap:0.6rem;">
+          <input class="form-input" id="nameLookup" type="text"
+                 placeholder="e.g. John Smith" autocomplete="name"
+                 onkeydown="if(event.key==='Enter'){event.preventDefault();findGuest();}">
+          <button type="button" class="btn-lookup" onclick="findGuest()">Find me</button>
+        </div>
+        <p class="name-match not-found" id="lookupError" style="display:none;"></p>
+      </div>
+
+      <!-- Confirmed party (shown after successful lookup) -->
+      <div class="form-group" id="confirmedGroup" style="display:none;">
+        <label class="form-label">Attending as</label>
+        <div class="confirmed-names" id="confirmedNames"></div>
+        <button type="button" class="btn-not-me" onclick="resetLookup()">Not you? Search again</button>
+        <input type="hidden" id="guestName" name="guestName">
       </div>
 
       <div class="form-group">
@@ -1248,71 +1329,81 @@
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
-        <span>Is there parking at the venues?</span>
+        <span>RSVP Deadline</span>
         <span class="faq-chevron">↓</span>
       </button>
       <div class="faq-answer">
-        <p>Yes — there is free on-site parking at the ceremony chapel. The reception hall has a public car park nearby on Example Road. If you're planning to enjoy a drink or two, we'd love for you to consider a taxi or rideshare home.</p>
+        <p>Please RSVP by XX September so we can get a proper headcount to the Winery. We'll send a reminder closer to the date.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
-        <span>Are children welcome?</span>
+        <span>How do I get there?</span>
         <span class="faq-chevron">↓</span>
       </button>
       <div class="faq-answer">
-        <p>We love your little ones dearly! We've kept our day intimate for adults only, so we hope you can treat it as a rare night off. Of course, breastfeeding babies are always welcome.</p>
+        <p>Since both events are around the Sydney CBD, public transport is highly encouraged! The Pyrmont Registry is a quick walk from the L1 Light Rail line - just get off at Pyrmont Bay. From the Registry, the Winery can be reached by the 389 bus, getting the L1 back to Central and taking a quick walk to Surry Hills. There will also be plenty of Ubers.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
-        <span>Can I take photos during the ceremony?</span>
+        <span>Can I bring a plus one?</span>
         <span class="faq-chevron">↓</span>
       </button>
       <div class="faq-answer">
-        <p>We're having an unplugged ceremony — we'd love for you to be fully present with us in the moment. Our wonderful photographer will capture everything beautifully, and we'll share the gallery with you afterwards. Please do snap away freely during the reception!</p>
+        <p>This will be a small, lowkey wedding so we ask that guests are limited to those on the invitation. Thank you for understanding!</p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
-        <span>What happens if the weather is unkind?</span>
+        <span>Is the wedding indoors or outdoors?</span>
         <span class="faq-chevron">↓</span>
       </button>
       <div class="faq-answer">
-        <p>The ceremony and drinks are planned for the outdoor garden, but we have a beautiful indoor wet-weather contingency ready to go. We'll send an update closer to the date if the forecast looks lively — so please make sure your RSVP includes a current email address.</p>
+        <p>Both the ceremony and the reception dinner will be fully indoor events, so no need to stress about umbrellas.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
-        <span>Will there be accommodation nearby?</span>
+        <span>Is there a gift registry or wishing well?</span>
         <span class="faq-chevron">↓</span>
       </button>
       <div class="faq-answer">
-        <p>We've reserved a room block at The Example Inn, just a 10-minute walk from the reception hall. Mention our names when booking to access the group rate. We'd recommend booking early as rooms will go quickly!</p>
+        <p>Your presence is truly the greatest gift. We won't have either, we truly just want to spend a lovely afternoon and evening with you!</p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
-        <span>Is there a gift registry?</span>
+        <span>Can we take photos during the wedding?</span>
         <span class="faq-chevron">↓</span>
       </button>
       <div class="faq-answer">
-        <p>Your presence truly is the greatest gift. If you'd like to contribute something, we have a small registry at Example Registry and a wishing well for those who prefer to give toward our honeymoon fund. There will be no pressure whatsoever on the day.</p>
+        <p>Absolutely! Just hold off on taking pictures during the ceremony. </p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
-        <span>I have another question — who can I contact?</span>
+        <span>Will there be a dancefloor?</span>
         <span class="faq-chevron">↓</span>
       </button>
       <div class="faq-answer">
-        <p>Please ping us in the group chat and we'll get back to you as soon as we can. We can't wait to celebrate with you!</p>
+        <p>Sadly, no - we just want to take you all out for a lovely dinner! We'll have some craft and games scattered to make sure you're not bored, but that shouldn't be a problem with you cool people - and we're very open to kick-ons ;)</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+        <span>I have another question - who can I contact?</span>
+        <span class="faq-chevron">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>Please ping us in the group chat/separately and we'll get back to you as soon as we can. We can't wait to celebrate with you!</p>
       </div>
     </div>
 
@@ -1418,46 +1509,85 @@ function toggleFaq(btn) {
   }
 }
 
-/* ----- RSVP Form ----- */
-// !! CONFIGURE: set your Formspree endpoint or custom action below
-// Sign up free at https://formspree.io and replace the URL
-const FORM_ACTION = 'https://formspree.io/f/xykladbo';
+/* ----- Guest list & lookup ----- */
+// !! CONFIGURE: add your guests below.
+// Each entry is one party. "names" is what gets confirmed and submitted.
+// "searchTerms" lists every full name someone in this party might type —
+// include each person's full name, all lowercase.
+const GUEST_LIST = [
+  { names: 'John Smith',            searchTerms: ['jane smith'] },
+  { names: 'John & Sarah Jones',    searchTerms: ['john jones', 'sarah jones'] },
+  { names: 'Michael Brown',         searchTerms: ['michael brown', 'mike brown'] },
+  { names: 'Emily & Tom Wilson',    searchTerms: ['emily wilson', 'tom wilson'] },
+  { names: 'David & Claire Taylor', searchTerms: ['david taylor', 'claire taylor'] },
+  // Add more guests here...
+];
 
-// !! CONFIGURE: set the recipient email for reference (Formspree handles delivery)
-const RECIPIENT_EMAIL = '';
+let matchedParty = null;
+
+function findGuest() {
+  const input    = document.getElementById('nameLookup');
+  const errorEl  = document.getElementById('lookupError');
+  const query    = input.value.trim().toLowerCase();
+
+  errorEl.style.display = 'none';
+
+  const match = GUEST_LIST.find(g => g.searchTerms.includes(query));
+
+  if (match) {
+    matchedParty = match;
+    document.getElementById('guestName').value    = match.names;
+    document.getElementById('confirmedNames').textContent = match.names;
+    document.getElementById('lookupGroup').style.display    = 'none';
+    document.getElementById('confirmedGroup').style.display = 'block';
+  } else {
+    matchedParty = null;
+    errorEl.textContent   = "We couldn't find that name — check your spelling or ping us directly.";
+    errorEl.style.display = 'block';
+  }
+}
+
+function resetLookup() {
+  matchedParty = null;
+  document.getElementById('nameLookup').value               = '';
+  document.getElementById('guestName').value                = '';
+  document.getElementById('lookupError').style.display      = 'none';
+  document.getElementById('lookupGroup').style.display      = 'block';
+  document.getElementById('confirmedGroup').style.display   = 'none';
+}
+
+/* ----- RSVP Form ----- */
+const FORM_ACTION = 'https://formspree.io/f/xykladbo';
 
 async function submitRSVP(e) {
   e.preventDefault();
-  const form = document.getElementById('rsvpForm');
-  const btn  = document.getElementById('submitBtn');
+  const form    = document.getElementById('rsvpForm');
+  const btn     = document.getElementById('submitBtn');
   const success = document.getElementById('formSuccess');
   const error   = document.getElementById('formError');
 
-  // Hide previous messages
   success.style.display = 'none';
   error.style.display   = 'none';
 
-  btn.disabled = true;
+  if (!matchedParty) {
+    document.getElementById('lookupGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById('lookupError').textContent   = 'Please look up your name before submitting.';
+    document.getElementById('lookupError').style.display = 'block';
+    return;
+  }
+
+  btn.disabled    = true;
   btn.textContent = 'Sending…';
 
   const data = {
-    name:       form.guestName.value,
+    name:       matchedParty.names,
     attendance: form.attendance.value,
     dietary:    form.dietary.value || 'None specified',
     message:    form.message.value || '',
-    _subject:   `Wedding RSVP — ${form.guestName.value}`,
+    _subject:   `Wedding RSVP — ${matchedParty.names}`,
   };
 
   try {
-    // If you haven't set up Formspree yet, this will fail gracefully
-    if (FORM_ACTION.includes('YOUR_FORM_ID')) {
-      // Demo mode: show success without sending
-      await new Promise(r => setTimeout(r, 900));
-      form.style.display = 'none';
-      success.style.display = 'block';
-      return;
-    }
-
     const res = await fetch(FORM_ACTION, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1465,15 +1595,15 @@ async function submitRSVP(e) {
     });
 
     if (res.ok) {
-      form.style.display = 'none';
+      form.style.display    = 'none';
       success.style.display = 'block';
     } else {
       throw new Error('Server error');
     }
   } catch (err) {
     error.style.display = 'block';
-    btn.disabled = false;
-    btn.textContent = 'Send my RSVP';
+    btn.disabled        = false;
+    btn.textContent     = 'Send my RSVP';
   }
 }
 </script>
