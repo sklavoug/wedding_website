@@ -404,12 +404,18 @@
 
   .map-canvas {
     width: 100%;
-    padding-top: 67%;
     position: relative;
-    background: url('images/map.png') center center / cover no-repeat;
     border-radius: 4px;
     box-shadow: 0 8px 40px rgba(107,83,68,0.18), 0 2px 8px rgba(107,83,68,0.1);
     border: 1px solid rgba(196,163,90,0.25);
+    overflow: hidden;
+    display: block;
+  }
+
+  .map-canvas .map-img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .map-placeholder-text {
@@ -438,48 +444,26 @@
   }
 
   /* Map pins */
+   /* Map pins */
   .map-pin {
     position: absolute;
     transform: translate(-50%, -100%);
     cursor: pointer;
     z-index: 10;
-    transition: transform 0.2s;
   }
 
-  .map-pin:hover { transform: translate(-50%, -100%) scale(1.15); }
-
-  .pin-dot {
-    width: 32px;
-    height: 32px;
-    border-radius: 50% 50% 50% 0;
-    transform: rotate(-45deg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 3px 10px rgba(107,83,68,0.25);
-    border: 2px solid white;
+  .map-pin img {
+    display: block;
+    width: 180px;
+    height: auto;
+    filter: drop-shadow(0 4px 6px rgba(107,83,68,0.3));
+    transition: transform 0.2s ease, filter 0.2s ease;
+    transform-origin: bottom center;
   }
 
-  .pin-dot span {
-    transform: rotate(45deg);
-    font-size: 0.9rem;
-  }
-
-  .pin-a .pin-dot { background: var(--dusty-rose); }
-  .pin-b .pin-dot { background: var(--sage); }
-  .pin-c .pin-dot { background: var(--gold); }
-
-  .pin-label {
-    text-align: center;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--warm-brown);
-    margin-top: 3px;
-    white-space: nowrap;
-    font-weight: 400;
-    text-shadow: 0 1px 3px rgba(245,239,230,0.9);
+  .map-pin:hover img {
+    transform: translateY(-6px);
+    filter: drop-shadow(0 10px 12px rgba(107,83,68,0.35));
   }
 
   /* Tooltip */
@@ -1117,6 +1101,7 @@
 
   <div class="map-container">
     <div class="map-canvas" id="mapCanvas">
+      <img class="map-img" src="images/map_no_venues.png" alt="Wedding venue map">
 
       <!-- Walking route SVG -->
       <svg class="map-route-svg" viewBox="0 0 100 62" preserveAspectRatio="none">
@@ -1126,35 +1111,27 @@
           </marker>
         </defs>
         <!-- A → B route (dashed) -->
-        <path d="M 28 35 Q 35 25 48 28 Q 55 30 60 25"
-              stroke="rgba(107,83,68,0.35)" stroke-width="0.8"
-              stroke-dasharray="2 1.5" fill="none"
-              marker-end="url(#arrowhead)" />
-        <!-- B → C route (dashed) -->
-        <path d="M 60 25 Q 68 22 72 30 Q 75 36 70 42"
-              stroke="rgba(107,83,68,0.35)" stroke-width="0.8"
+        <path d="M 28 35 L 34 44 L 48 43 L 50 41 L 76 46 L 78 48"
+              stroke="rgba(107,83,68,0.55)" stroke-width="0.8"
               stroke-dasharray="2 1.5" fill="none"
               marker-end="url(#arrowhead)" />
       </svg>
 
       <!-- Pin A: Ceremony -->
-      <div class="map-pin pin-a" style="left:28%;top:55%;" data-pin="a"
+      <div class="map-pin pin-a" style="left:22%;top:60%;" data-pin="a"
            onclick="showTooltip('a', this)">
-        <div class="pin-dot"><span>⛪</span></div>
-        <div class="pin-label">Ceremony</div>
+        <img src="images/registry_transparent.png" alt="Ceremony venue">
       </div>
 
       <!-- Pin B: Reception Hall -->
-      <div class="map-pin pin-c" style="left:70%;top:68%;" data-pin="b"
+      <div class="map-pin pin-a" style="left:74%;top:99%;" data-pin="b"
            onclick="showTooltip('b', this)">
-        <div class="pin-dot"><span>🏛️</span></div>
-        <div class="pin-label">Reception</div>
+        <img src="images/winery_transparent.png" alt="Ceremony venue">
       </div>
 
       <!-- Tooltip -->
       <div class="map-tooltip" id="mapTooltip">
         <button class="tooltip-close" onclick="closeTooltip()">×</button>
-        <div class="tooltip-img" id="tooltipImg">Image coming soon</div>
         <div class="tooltip-name" id="tooltipName"></div>
         <div class="tooltip-time" id="tooltipTime"></div>
         <div class="tooltip-desc" id="tooltipDesc"></div>
@@ -1515,11 +1492,35 @@ function toggleFaq(btn) {
 // "searchTerms" lists every full name someone in this party might type —
 // include each person's full name, all lowercase.
 const GUEST_LIST = [
-  { names: 'John Smith',            searchTerms: ['jane smith'] },
-  { names: 'John & Sarah Jones',    searchTerms: ['john jones', 'sarah jones'] },
-  { names: 'Michael Brown',         searchTerms: ['michael brown', 'mike brown'] },
-  { names: 'Emily & Tom Wilson',    searchTerms: ['emily wilson', 'tom wilson'] },
-  { names: 'David & Claire Taylor', searchTerms: ['david taylor', 'claire taylor'] },
+  { names: 'Sylvia and Arthur',            searchTerms: ['sylvia sklavounos','arthur houhoutas'] },
+  { names: 'Alec and Paola',    searchTerms: ['alec sklavounos'] },
+  { names: 'Holly and Roger',         searchTerms: ['roger thomson','holly thomson'] },
+  { names: 'Emanuel and Vaso',    searchTerms: ['emanuel sklavounos'] },
+  { names: 'Greg and Nadira', searchTerms: ['greg thomson'] },
+  { names: 'Grandma', searchTerms: ['margaret thomson'] },
+  { names: ''},
+  { names: 'Alice and Alex', searchTerms: ['alice van tilburg','alex malicki'] },
+  { names: 'Will and Anne', searchTerms: ['william lieu','anne lieu'] },
+  { names: 'Shevera', searchTerms: ['shevera rodrigo'] },
+  { names: 'Sarah', searchTerms: ['sarah aldrich'] },
+  { names: 'Kiran', searchTerms: ['kiran ashby'] },
+  { names: 'Callum and Kathryn', searchTerms: ['callum firth','kathryn moreira'] },
+  { names: 'Alex and Cynthia', searchTerms: ['alex morony','cynthia morony'] },
+  { names: 'Priyanka and Yalaindra', searchTerms: ['priyanka ajit','yalaindra shugumar'] },
+  { names: 'Tom and Liz', searchTerms: ['tom corben','liz lester'] },
+  { names: 'Elly and Laura', searchTerms: ['elly greene','laura mcgee'] },
+  { names: 'Sue', searchTerms: ['sue black'] },
+  
+  { names: 'Tom and Liz', searchTerms: ['tom corben','liz lester'] },
+  { names: 'Lyndon and Vish', searchTerms: ['lyndon yeung'] },
+  { names: 'Rohan and Rebs', searchTerms: ['rohan iyer'] },
+  { names: 'Richard and Sahini', searchTerms: ['richard berky'] },
+  { names: 'Ailene and Aaron', searchTerms: ['ailene del mundo'] },
+  { names: 'Joel and Macalla', searchTerms: ['joel walker'] },
+  { names: 'Ana', searchTerms: ['ana castro'] },
+  { names: 'Andrew', searchTerms: ['andrew novak'] },
+  { names: 'Abbey and Nathan', searchTerms: ['abbey bosschieter'] },
+  
   // Add more guests here...
 ];
 
