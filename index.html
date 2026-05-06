@@ -444,7 +444,6 @@
   }
 
   /* Map pins */
-   /* Map pins */
   .map-pin {
     position: absolute;
     transform: translate(-50%, -100%);
@@ -453,15 +452,56 @@
   }
 
   .map-pin img {
-    display: block;
     width: 180px;
-    height: auto;
     filter: drop-shadow(0 4px 6px rgba(107,83,68,0.3));
     transition: transform 0.2s ease, filter 0.2s ease;
     transform-origin: bottom center;
   }
 
   .map-pin:hover img {
+    transform: translateY(-6px);
+    filter: drop-shadow(0 10px 12px rgba(107,83,68,0.35));
+  }
+
+  .pin-label {
+    display: block;
+    text-align: left;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-brown);
+    text-shadow: 0 1px 3px rgba(245,239,230,0.9);
+    white-space: nowrap;
+  }
+
+  .pin-label-below { margin-top: 0.35rem; margin-bottom: 0.35rem; text-align: center}
+  .pin-label-above { margin-bottom: 0.35rem; margin-top: 0.35rem;}
+
+  /* Crop top 20% of reception image */
+  .pin-ceremony-img {
+    display: block;
+    width: 180px;
+    height: 100px;  /* show 80% of natural height */
+    object-fit: cover;
+    object-position: center bottom; /* anchor to bottom, cropping the top */
+    filter: drop-shadow(0 4px 6px rgba(107,83,68,0.3));
+    transition: transform 0.2s ease, filter 0.2s ease;
+    transform-origin: top center;
+  }
+
+  .pin-reception-img {
+    display: block;
+    width: 180px;
+    height: 110px;  /* show 80% of natural height */
+    object-fit: cover;
+    object-position: center bottom; /* anchor to bottom, cropping the top */
+    filter: drop-shadow(0 4px 6px rgba(107,83,68,0.3));
+    transition: transform 0.2s ease, filter 0.2s ease;
+    transform-origin: bottom center;
+  }
+
+  .map-pin:hover .pin-reception-img {
     transform: translateY(-6px);
     filter: drop-shadow(0 10px 12px rgba(107,83,68,0.35));
   }
@@ -1013,7 +1053,7 @@
   <div class="hero-names">
     Susan & George
   </div>
-  <p class="hero-date serif-italic">Saturday, the nineteenth of September, two thousand and twenty-five</p>
+  <p class="hero-date serif-italic">Saturday, 19 September 2026</p>
   <p class="hero-location">Sydney</p>
 </section>
 
@@ -1068,7 +1108,7 @@
       <div class="timeline-content">
         <p class="timeline-time">5:30 pm</p>
         <h3>Welcome Drinks</h3>
-        <p>Join us in the the Winery to kick off the reception dinner with some welcome cocktails! Drinks will be open for wine, beer, and even the spirits menu.</p>
+        <p>Join us in the the Winery to kick off the reception dinner with some welcome cocktails! Drinks will be open with wine, beer, and even the spirits menu on offer.</p>
       </div>
       <div class="timeline-icon">
         <img src="images/cocktail.png" alt="Welcome Drinks" onerror="this.style.display='none'" style="max-width: 100%; height: auto; transform: scale(0.9); margin-left: 35px;">
@@ -1095,7 +1135,7 @@
     <div class="section-rule"></div>
     <h2>The Venues</h2>
     <p class="serif-italic" style="color:var(--taupe);font-size:1.1rem;margin-top:0.5rem;">
-      Click each pin to explore
+      Click the venues to explore!
     </p>
   </div>
 
@@ -1117,16 +1157,16 @@
               marker-end="url(#arrowhead)" />
       </svg>
 
-      <!-- Pin A: Ceremony -->
-      <div class="map-pin pin-a" style="left:22%;top:60%;" data-pin="a"
+      <!-- Pin A: Ceremony — label below -->
+      <div class="map-pin pin-a" style="left:21%;top:59%;" data-pin="a"
            onclick="showTooltip('a', this)">
-        <img src="images/registry_transparent.png" alt="Ceremony venue">
+        <img class="pin-ceremony-img" src="images/registry_transparent.png" alt="Ceremony venue">
       </div>
 
-      <!-- Pin B: Reception Hall -->
-      <div class="map-pin pin-a" style="left:74%;top:99%;" data-pin="b"
+      <!-- Pin B: Reception Hall — label above, image cropped 20% from top -->
+      <div class="map-pin pin-b" style="left:74%;top:100%;" data-pin="b"
            onclick="showTooltip('b', this)">
-        <img src="images/winery_transparent.png" alt="Ceremony venue">
+        <img class="pin-reception-img" src="images/winery_transparent.png" alt="Reception venue">
       </div>
 
       <!-- Tooltip -->
@@ -1166,7 +1206,7 @@
     <div class="info-card">
       <div class="info-card-icon">👗</div>
       <h3>Dress Code</h3>
-      <p>Formal attire.</p>
+      <p>Semi-formal. Think of what you'd wear for a nice dinner out!</p>
     </div>
 
     <div class="info-card">
@@ -1195,7 +1235,7 @@
       <div class="plan-col">
         <h4>Key Info</h4>
         <ul style="list-style:none;padding:0;">
-          <li>🌸 Formal attire</li>
+          <li>🌸 Semi-formal attire</li>
           <li>⛪ Ceremony: Pyrmont Wedding Registry</li>
           <li>🏛️ Reception: The Winery, Surry Hills</li>
           <li>🍽️ Dietary needs → RSVP form</li>
@@ -1366,16 +1406,6 @@
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
-        <span>Will there be a dancefloor?</span>
-        <span class="faq-chevron">↓</span>
-      </button>
-      <div class="faq-answer">
-        <p>Sadly, no - we just want to take you all out for a lovely dinner! We'll have some craft and games scattered to make sure you're not bored, but that shouldn't be a problem with you cool people - and we're very open to kick-ons ;)</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
         <span>I have another question - who can I contact?</span>
         <span class="faq-chevron">↓</span>
       </button>
@@ -1498,7 +1528,6 @@ const GUEST_LIST = [
   { names: 'Emanuel and Vaso',    searchTerms: ['emanuel sklavounos'] },
   { names: 'Greg and Nadira', searchTerms: ['greg thomson'] },
   { names: 'Grandma', searchTerms: ['margaret thomson'] },
-  { names: ''},
   { names: 'Alice and Alex', searchTerms: ['alice van tilburg','alex malicki'] },
   { names: 'Will and Anne', searchTerms: ['william lieu','anne lieu'] },
   { names: 'Shevera', searchTerms: ['shevera rodrigo'] },
