@@ -1522,34 +1522,6 @@ function toggleFaq(btn) {
 // "searchTerms" lists every full name someone in this party might type —
 // include each person's full name, all lowercase.
 const GUEST_LIST = [
-  { names: 'Sylvia and Arthur',            searchTerms: ['sylvia sklavounos','arthur houhoutas'] },
-  { names: 'Alec and Paola',    searchTerms: ['alec sklavounos'] },
-  { names: 'Holly and Roger',         searchTerms: ['roger thomson','holly thomson'] },
-  { names: 'Emanuel and Vaso',    searchTerms: ['emanuel sklavounos'] },
-  { names: 'Greg and Nadira', searchTerms: ['greg thomson'] },
-  { names: 'Grandma', searchTerms: ['margaret thomson'] },
-  { names: 'Alice and Alex', searchTerms: ['alice van tilburg','alex malicki'] },
-  { names: 'Will and Anne', searchTerms: ['william lieu','anne lieu'] },
-  { names: 'Shevera', searchTerms: ['shevera rodrigo'] },
-  { names: 'Sarah', searchTerms: ['sarah aldrich'] },
-  { names: 'Kiran', searchTerms: ['kiran ashby'] },
-  { names: 'Callum and Kathryn', searchTerms: ['callum firth','kathryn moreira'] },
-  { names: 'Alex and Cynthia', searchTerms: ['alex morony','cynthia morony'] },
-  { names: 'Priyanka and Yalaindra', searchTerms: ['priyanka ajit','yalaindra shugumar'] },
-  { names: 'Tom and Liz', searchTerms: ['tom corben','liz lester'] },
-  { names: 'Elly and Laura', searchTerms: ['elly greene','laura mcgee'] },
-  { names: 'Sue', searchTerms: ['sue black'] },
-  
-  { names: 'Tom and Liz', searchTerms: ['tom corben','liz lester'] },
-  { names: 'Lyndon and Vishaka', searchTerms: ['lyndon yeung'] },
-  { names: 'Rohan and Rebka', searchTerms: ['rohan iyer'] },
-  { names: 'Richard and Suhini', searchTerms: ['richard berky'] },
-  { names: 'Ailene and Aaron', searchTerms: ['ailene del mundo'] },
-  { names: 'Joel and Macalla', searchTerms: ['joel walker'] },
-  { names: 'Ana', searchTerms: ['ana castro'] },
-  { names: 'Andrew', searchTerms: ['andrew novak'] },
-  { names: 'Abbey and Nathan', searchTerms: ['abbey bosschieter'] },
-  
   // Add more guests here...
 ];
 
@@ -1587,7 +1559,7 @@ function resetLookup() {
 }
 
 /* ----- RSVP Form ----- */
-const FORM_ACTION = 'https://formspree.io/f/xykladbo';
+const FORM_ACTION = '';
 
 async function submitRSVP(e) {
   e.preventDefault();
